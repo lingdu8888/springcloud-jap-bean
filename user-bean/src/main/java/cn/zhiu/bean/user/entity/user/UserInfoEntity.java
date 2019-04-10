@@ -2,9 +2,9 @@ package cn.zhiu.bean.user.entity.user;
 
 import cn.zhiu.bean.user.entity.enums.convert.user.UserStatusConverter;
 import cn.zhiu.bean.user.entity.enums.user.UserStatus;
+import cn.zhiu.framework.bean.core.entity.BaseEntity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * The type User info.
@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "user_info")
-public class UserInfoEntity implements Serializable {
+public class UserInfoEntity implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
