@@ -12,6 +12,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>user-bean</module>
+        <module>cloud-disk-bean</module>
     </modules>
 
     <dependencies>
