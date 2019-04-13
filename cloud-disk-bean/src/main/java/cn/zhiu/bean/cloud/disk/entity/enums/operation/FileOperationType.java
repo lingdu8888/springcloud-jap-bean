@@ -12,30 +12,31 @@ import java.util.Map;
 
 /**
  * @Auther: yujuan
- * @Date: 19-4-11 14:33
+ * @Date: 19-4-11 11:40
  * @Description:
  */
-public enum FileOperationStatus {
-    PROCESSING(0, "操作中"),
-    FINISH(1, "已完成"),
-    ERROR(-1,"失败");
+public enum FileOperationType {
 
-    private static Logger logger = LoggerFactory.getLogger(FileOperationStatus.class);
+    UNZIP(1, "解压"),
+    TILES(2, "to 3D tiles"),
+    SESD(3, "to sesd");
+
+    private static Logger logger = LoggerFactory.getLogger(FileOperationType.class);
 
     private static final Object _LOCK = new Object();
 
-    private static Map<Integer, FileOperationStatus> _MAP;
-    private static List<FileOperationStatus> _LIST;
-    private static List<FileOperationStatus> _ALL_LIST;
+    private static Map<Integer, FileOperationType> _MAP;
+    private static List<FileOperationType> _LIST;
+    private static List<FileOperationType> _ALL_LIST;
 
     static {
         synchronized (_LOCK) {
-            Map<Integer, FileOperationStatus> map = new HashMap<>();
-            List<FileOperationStatus> list = new ArrayList<>();
-            List<FileOperationStatus> listAll = new ArrayList<>();
-            for (FileOperationStatus status : FileOperationStatus.values()) {
-                map.put(status.getValue(), status);
-                listAll.add(status);
+            Map<Integer, FileOperationType> map = new HashMap<>();
+            List<FileOperationType> list = new ArrayList<>();
+            List<FileOperationType> listAll = new ArrayList<>();
+            for (FileOperationType fileOperationType : FileOperationType.values()) {
+                map.put(fileOperationType.getValue(), fileOperationType);
+                listAll.add(fileOperationType);
             }
 
             _MAP = ImmutableMap.copyOf(map);
@@ -47,7 +48,7 @@ public enum FileOperationStatus {
     private int value;
     private String name;
 
-    FileOperationStatus(int value, String name) {
+    FileOperationType(int value, String name) {
         this.value = value;
         this.name = name;
     }
@@ -60,7 +61,7 @@ public enum FileOperationStatus {
         return value;
     }
 
-    public static FileOperationStatus get(int value) {
+    public static FileOperationType get(int value) {
         try {
             return _MAP.get(value);
         } catch (Exception e) {
@@ -69,11 +70,11 @@ public enum FileOperationStatus {
         }
     }
 
-    public static List<FileOperationStatus> list() {
+    public static List<FileOperationType> list() {
         return _LIST;
     }
 
-    public static List<FileOperationStatus> listAll() {
+    public static List<FileOperationType> listAll() {
         return _ALL_LIST;
     }
 }

@@ -1,13 +1,16 @@
 package cn.zhiu.bean.cloud.disk.entity.operation;
 
+import cn.zhiu.bean.cloud.disk.entity.enums.convert.operation.FileOperationStatusConverter;
+import cn.zhiu.bean.cloud.disk.entity.enums.convert.operation.FileOperationTypeConvert;
 import cn.zhiu.bean.cloud.disk.entity.enums.operation.FileOperationStatus;
+import cn.zhiu.bean.cloud.disk.entity.enums.operation.FileOperationType;
 import cn.zhiu.framework.bean.core.entity.BaseEntity;
-import cn.zhiu.framework.bean.core.enums.FileOperationType;
-import cn.zhiu.framework.bean.core.enums.converter.FileOperationTypeConvert;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.util.Date;
+
 /**
  * @Auther: yujuan
  * @Date: 19-4-11 10:50
@@ -16,8 +19,8 @@ import java.util.Date;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "user_file")
-public class UserOperationEntity implements BaseEntity{
+@Table(name = "user_operation")
+public class UserOperationEntity implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +30,14 @@ public class UserOperationEntity implements BaseEntity{
     private String userId;
 
     @Column(name = "file_id", nullable = false)
-    private Long fileId;
+    private String fileId;
 
     @Convert(converter = FileOperationTypeConvert.class)
+    @Column(name = "type", nullable = false)
     private FileOperationType type;
 
-    @Convert(converter = FileOperationStatus.class)
+    @Convert(converter = FileOperationStatusConverter.class)
+    @Column(name = "status", nullable = false)
     private FileOperationStatus status;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -59,11 +64,11 @@ public class UserOperationEntity implements BaseEntity{
         this.userId = userId;
     }
 
-    public Long getFileId() {
+    public String getFileId() {
         return fileId;
     }
 
-    public void setFileId(Long fileId) {
+    public void setFileId(String fileId) {
         this.fileId = fileId;
     }
 
@@ -98,6 +103,7 @@ public class UserOperationEntity implements BaseEntity{
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
     @PrePersist
     public void onCreate() {
         if (this.getAddTime() == null) {

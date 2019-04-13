@@ -5,6 +5,8 @@ import cn.zhiu.bean.cloud.disk.entity.enums.file.Status;
 import cn.zhiu.framework.bean.core.entity.BaseEntity;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -41,16 +43,18 @@ public class UserFileEntity implements BaseEntity {
     @Column(name = "dir_id", nullable = false)
     private Long dirId;
 
+    @Column(name = "path", nullable = false)
     private String path;
 
     @Convert(converter = StatusConverter.class)
+    @Column(name = "status", nullable = false)
     private Status status;
 
     @Column(name = "file_update_time", nullable = false)
     private Date fileUpdateTime;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "update_time", nullable = false)
+    @Column(name = "add_time", insertable = false, updatable = false, nullable = false)
     private Date addTime;
 
     @Temporal(TemporalType.TIMESTAMP)

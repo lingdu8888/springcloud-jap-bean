@@ -17,7 +17,7 @@ import java.util.Date;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "user_direction")
+@Table(name = "user_directory")
 public class UserDirectoryEntity implements BaseEntity {
 
     @Id
@@ -27,19 +27,21 @@ public class UserDirectoryEntity implements BaseEntity {
     @Column(name = "user_id", nullable = false)
     private String userId;
 
-    @Column(name = "direction_name", nullable = false)
-    private String directionName;
+    @Column(name = "directory_name", nullable = false)
+    private String directoryName;
 
     @Column(name = "parent_id", nullable = false)
     private Long parentId;
 
+    @Column(name = "path", nullable = false)
     private String path;
 
     @Convert(converter = StatusConverter.class)
+    @Column(name = "status", nullable = false)
     private Status status;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "add_time", nullable = false)
+    @Column(name = "add_time", nullable = false, insertable = false, updatable = false)
     private Date addTime;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -62,12 +64,12 @@ public class UserDirectoryEntity implements BaseEntity {
         this.userId = userId;
     }
 
-    public String getDirectionName() {
-        return directionName;
+    public String getDirectoryName() {
+        return directoryName;
     }
 
-    public void setDirectionName(String directionName) {
-        this.directionName = directionName;
+    public void setDirectoryName(String directoryName) {
+        this.directoryName = directoryName;
     }
 
     public Long getParentId() {
